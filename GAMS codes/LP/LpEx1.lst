@@ -1,0 +1,181 @@
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  variables x1 , x2 , x3 , of ;
+   2  Equations
+   3  eq1
+   4  eq2
+   5  eq3
+   6  eq4 ;
+   7  eq1 .. x1+2*x2 =g=3;
+   8  eq2 .. x3+x2 =g=5;
+   9  eq3 .. x1+x3 =e=4;
+  10  eq4 .. x1+3*x2 +3*x3=e=OF;
+  11  model LPEx1 / all / ;
+  12  Solve LPEx1 US LP min of;
+  13  display x1.l , x2.l , x3.l , of.l ;
+
+
+COMPILATION TIME     =        0.005 SECONDS      2 MB  41.5.0 2a5a4ddc DEX-DEG
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE LPEx1 Using LP From line 12
+
+
+---- eq1  =G=  
+
+eq1..  x1 + 2*x2 =G= 3 ; (LHS = 0, INFES = 3 ****)
+     
+
+---- eq2  =G=  
+
+eq2..  x2 + x3 =G= 5 ; (LHS = 0, INFES = 5 ****)
+     
+
+---- eq3  =E=  
+
+eq3..  x1 + x3 =E= 4 ; (LHS = 0, INFES = 4 ****)
+     
+
+---- eq4  =E=  
+
+eq4..  x1 + 3*x2 + 3*x3 - of =E= 0 ; (LHS = 0)
+     
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE LPEx1 Using LP From line 12
+
+
+---- x1  
+
+x1
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       eq1
+        1       eq3
+        1       eq4
+
+
+---- x2  
+
+x2
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        2       eq1
+        1       eq2
+        3       eq4
+
+
+---- x3  
+
+x3
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       eq2
+        1       eq3
+        3       eq4
+
+
+---- of  
+
+of
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       eq4
+
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Range Statistics    SOLVE LPEx1 Using LP From line 12
+
+
+RANGE STATISTICS (ABSOLUTE NON-ZERO FINITE VALUES)
+
+RHS       [min, max] : [ 3.000E+00, 5.000E+00] - Zero values observed as well
+Bound     [min, max] : [        NA,        NA]
+Matrix    [min, max] : [ 1.000E+00, 3.000E+00]
+
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE LPEx1 Using LP From line 12
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           4     SINGLE EQUATIONS            4
+BLOCKS OF VARIABLES           4     SINGLE VARIABLES            4
+NON ZERO ELEMENTS            10
+
+
+GENERATION TIME      =        0.016 SECONDS      3 MB  41.5.0 2a5a4ddc DEX-DEG
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE LPEx1 Using LP From line 12
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   LPEx1               OBJECTIVE  of
+     TYPE    LP                  DIRECTION  MINIMIZE
+     SOLVER  CPLEX               FROM LINE  12
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      1 Optimal
+**** OBJECTIVE VALUE               15.3333
+
+ RESOURCE USAGE, LIMIT          0.014 10000000000.000
+ ITERATION COUNT, LIMIT         1    2147483647
+--- *** This solver runs with a community license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.01sec (det. 0.00 ticks)
+
+
+Optimal solution found
+Objective:           15.333333
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU eq1                3.0000         3.0000        +INF            0.3333      
+---- EQU eq2                5.0000         5.0000        +INF            2.3333      
+---- EQU eq3                4.0000         4.0000         4.0000         0.6667      
+---- EQU eq4                 .              .              .            -1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR x1                -INF            0.3333        +INF             .          
+---- VAR x2                -INF            1.3333        +INF             .          
+---- VAR x3                -INF            3.6667        +INF             .          
+---- VAR of                -INF           15.3333        +INF             .          
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+GAMS 41.5.0  2a5a4ddc Jan 3, 2023           DEX-DEG x86 64bit/macOS - 01/30/23 16:10:25 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+----     13 VARIABLE x1.L                  =        0.333  
+            VARIABLE x2.L                  =        1.333  
+            VARIABLE x3.L                  =        3.667  
+            VARIABLE of.L                  =       15.333  
+
+
+EXECUTION TIME       =        0.088 SECONDS      3 MB  41.5.0 2a5a4ddc DEX-DEG
+
+
+USER: GAMS Community License for Azeez Olasoji       G230130|0002AO-GEN
+      University of Cape Town, Department of Chemical EngineeringCL5075
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      /Users/naruto/Library/CloudStorage/OneDrive-UniversityofCapeTown/PhD papers/PhD Optimization codes/GAMS codes/LpEx1.gms
+Output     /Users/naruto/Library/CloudStorage/OneDrive-UniversityofCapeTown/PhD papers/PhD Optimization codes/GAMS codes/LpEx1.lst

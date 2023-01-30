@@ -1,0 +1,71 @@
+
+--- Job LpEx1.gms Start 01/30/23 16:10:25 41.5.0 2a5a4ddc DEX-DEG x86 64bit/macOS
+--- Applying:
+    /Library/Frameworks/GAMS.framework/Versions/41/Resources/gmsprmun.txt
+--- GAMS Parameters defined
+    Input "/Users/naruto/Library/CloudStorage/OneDrive-UniversityofCapeTown/PhD papers/PhD Optimization codes/GAMS codes/LpEx1.gms"
+    PageSize 0
+    ScrDir "/Users/naruto/Library/CloudStorage/OneDrive-UniversityofCapeTown/PhD papers/PhD Optimization codes/GAMS codes/225a/"
+    SysDir /Library/Frameworks/GAMS.framework/Versions/41/Resources/
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: GAMS Community License for Azeez Olasoji       G230130|0002AO-GEN
+          University of Cape Town, Department of Chemical EngineeringCL5075
+          /Users/naruto/Library/Application Support/GAMS/gamslice.txt
+          Azeez Olasoji, OLSAZE001@myuct.ac.za                             
+          Community license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 10 core(s), and 10 thread(s) available
+GAMS 41.5.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
+--- Starting compilation
+--- LpEx1.gms(13) 2 Mb
+--- Starting execution: elapsed 0:00:00.010
+--- Generating LP model LPEx1
+--- LpEx1.gms(12) 3 Mb
+---   4 rows  4 columns  10 non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 3.000E+00, 5.000E+00] - Zero values observed as well
+--- Bound     [min, max] : [        NA,        NA]
+--- Matrix    [min, max] : [ 1.000E+00, 3.000E+00]
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.026
+
+IBM ILOG CPLEX   41.5.0 2a5a4ddc Jan 3, 2023           DEG x86 64bit/macOS    
+
+--- *** This solver runs with a community license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Pool_Capacity                       0
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+Tried aggregator 1 time.
+LP Presolve eliminated 0 rows and 1 columns.
+Aggregator did 1 substitutions.
+Reduced LP has 2 rows, 2 columns, and 4 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+Initializing dual steep norms . . .
+
+Iteration      Dual Objective            In Variable           Out Variable
+     1  I            0.000000                     x2              eq1 slack
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.01sec (det. 0.00 ticks)
+
+
+Optimal solution found
+Objective:           15.333333
+
+--- Reading solution for model LPEx1
+--- Executing after solve: elapsed 0:00:00.098
+--- LpEx1.gms(13) 3 Mb
+*** Status: Normal completion
+--- Job LpEx1.gms Stop 01/30/23 16:10:25 elapsed 0:00:00.099

@@ -1,0 +1,27 @@
+B 3 C o m p i l a t i o n
+B 24 Equation Listing    SOLVE LPEx1 Using LP From line 12
+D 27 eq1
+D 32 eq2
+D 37 eq3
+D 42 eq4
+B 48 Column Listing      SOLVE LPEx1 Using LP From line 12
+E 51 x1
+E 60 x2
+E 69 x3
+E 78 of
+B 86 Range Statistics    SOLVE LPEx1 Using LP From line 12
+B 97 Model Statistics    SOLVE LPEx1 Using LP From line 12
+B 110 Solution Report     SOLVE LPEx1 Using LP From line 12
+F 143 eq1
+F 144 eq2
+F 145 eq3
+F 146 eq4
+G 150 x1
+G 151 x2
+G 152 x3
+G 153 of
+B 161 E x e c u t i o n
+I 163 x1
+I 164 x2
+I 165 x3
+I 166 of
