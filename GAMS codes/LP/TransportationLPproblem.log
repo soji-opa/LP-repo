@@ -1,0 +1,75 @@
+
+--- Job TransportationLPproblem.gms Start 01/31/23 16:11:09 41.5.0 2a5a4ddc DEX-DEG x86 64bit/macOS
+--- Applying:
+    /Library/Frameworks/GAMS.framework/Versions/41/Resources/gmsprmun.txt
+--- GAMS Parameters defined
+    Input "/Users/naruto/Library/CloudStorage/OneDrive-UniversityofCapeTown/PhD papers/PhD Optimization codes/GAMS codes/TransportationLPproblem.gms"
+    PageSize 0
+    ScrDir "/Users/naruto/Library/CloudStorage/OneDrive-UniversityofCapeTown/PhD papers/PhD Optimization codes/GAMS codes/225a/"
+    SysDir /Library/Frameworks/GAMS.framework/Versions/41/Resources/
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+Licensee: GAMS Community License for Azeez Olasoji       G230130|0002AO-GEN
+          University of Cape Town, Department of Chemical EngineeringCL5075
+          /Users/naruto/Library/Application Support/GAMS/gamslice.txt
+          Azeez Olasoji, OLSAZE001@myuct.ac.za                             
+          Community license for demonstration and instructional purposes only
+Processor information: 1 socket(s), 10 core(s), and 10 thread(s) available
+GAMS 41.5.0   Copyright (C) 1987-2023 GAMS Development. All rights reserved
+--- Starting compilation
+--- TransportationLPproblem.gms(36) 3 Mb
+--- Starting execution: elapsed 0:00:00.009
+--- TransportationLPproblem.gms(27) 4 Mb
+--- Generating LP model TransportationLPproblem
+--- TransportationLPproblem.gms(35) 4 Mb
+---   8 rows  16 columns  43 non-zeroes
+--- Range statistics (absolute non-zero finite values)
+--- RHS       [min, max] : [ 1.000E+01, 1.600E+02] - Zero values observed as well
+--- Bound     [min, max] : [ 2.000E+01, 2.000E+02] - Zero values observed as well
+--- Matrix    [min, max] : [ 1.000E+00, 1.008E+03]
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:00.120
+
+IBM ILOG CPLEX   41.5.0 2a5a4ddc Jan 3, 2023           DEG x86 64bit/macOS    
+
+--- *** This solver runs with a community license. No commercial use.
+--- GMO setup time: 0.00s
+--- GMO memory 0.50 Mb (peak 0.50 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 22.1.0.0 link memory 0.00 Mb (peak 0.00 Mb)
+--- Starting Cplex
+
+Version identifier: 22.1.0.0 | 2022-03-09 | 1a383f8ce
+CPXPARAM_Advance                                 0
+CPXPARAM_Simplex_Display                         2
+CPXPARAM_Threads                                 1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Pool_Capacity                       0
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+Tried aggregator 1 time.
+LP Presolve eliminated 0 rows and 1 columns.
+Reduced LP has 7 rows, 15 columns, and 27 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration      Dual Objective            In Variable           Out Variable
+     1           57426.666667               X(s1,D4)          eq2(D4) artif
+     2           71426.666667                  p(s1)          eq1(s1) artif
+     3           97436.666667               X(s1,D3)          eq2(D3) artif
+     4          104156.666667               X(s2,D2)          eq2(D2) artif
+     5          108606.666667               X(s2,D3)                  p(s1)
+     6          112106.666667                  p(s2)          eq1(s2) artif
+     7          112786.666667               X(s3,D2)          eq1(s3) artif
+     8          113076.666667               X(s3,D1)          eq2(D1) artif
+
+--- LP status (1): optimal.
+--- Cplex Time: 0.01sec (det. 0.02 ticks)
+
+
+Optimal solution found
+Objective:       113076.666667
+
+--- Reading solution for model TransportationLPproblem
+*** Status: Normal completion
+--- Job TransportationLPproblem.gms Stop 01/31/23 16:11:09 elapsed 0:00:00.451
