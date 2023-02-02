@@ -54,3 +54,4 @@ x.up(i,j) = 100;
 
 Model minlp1 / all /;
 solve minlp1 using minlp minimizing of;
+solve minlp1 using miqcp minimizing of;
