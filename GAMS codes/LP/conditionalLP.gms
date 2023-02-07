@@ -71,6 +71,8 @@ Conditional LP problem formulation code
 
 $offText
 
+$onText
+
 Set i / 1 * 5/;
 
 Variable x(i), OF;
@@ -88,3 +90,50 @@ Model base /all/;
 
 Solve base min OF using LP;
 
+$offText
+
+$onText
+
+Set i / 1 * 5/;
+
+Variable x(i), OF;
+
+x.lo(i) $(ord(i)<3) = -2;
+x.up(i) $(ord(i)<3) = 2;
+
+x.lo(i) $(ord(i) >= 3) = -3;
+x.up(i) $(ord(i) >= 3) = 3;
+
+Equations eq1, eq2, eq3;
+
+eq1 .. 1=e= sum(i $(ord(i) < 3 or ord(i) = 4), x(i));
+eq2 .. 2=l= sum(i $(ord(i) <> 4), x(i));
+eq3 .. OF=e= sum(i, x(i));
+
+Model base /all/;
+
+Solve base min OF using LP;
+$offText
+
+Set i / 1 * 5/;
+
+Variable x(i), OF;
+
+x.lo(i)  = -1;
+x.up(i)  = 1;
+
+
+Equations eq1, eq2, eq3, eq4, eq5;
+
+
+eq1 .. 2=l= sum(i $(ord(i) <> 4), x(i));
+eq2 .. 6=l= sum(i $(ord(i) <> 5), ord(i) * x(i));
+
+eq3(i) $(ord(i) <=3) .. -2=l=x(i) + x(i+1);
+eq4(i) $(ord(i) <=3) .. x(i) + x(i+1) =l= 2;
+
+eq5 .. OF=e= sum(i, x(i));
+
+Model base /all/;
+
+Solve base min OF using LP;
