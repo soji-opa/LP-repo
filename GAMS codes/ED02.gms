@@ -18,7 +18,7 @@ $offText
 
 Set Gen / g1*g5 /;
 
-Parameter report(gen, *);
+Parameter report(gen, *), rep1(*), rep2(*), rep3(*), rep4(*);
 
 Scalar load / 400 /;
 
@@ -66,20 +66,34 @@ Model EDS / eq1, eq2, eq3, eq4 /;
 *'reduce economic cost';
 solve EDS using qcp minimizing TC;
 report (gen, 'ED')=P.l(gen);
-
+rep1('Total Ct') = TC.l;
+rep1('Total Em') = TE.l;
+rep1('OF')=OF.l;
 
 *'reducing emission cost';
 solve EDS using qcp minimizing TE;
 report (gen, 'END')=P.l(gen);
+rep2('Total Em') = TE.l;
+rep2('Total Ct') = TC.l;
+rep2('OF')=OF.l;
+
 
 
 *'including penalty into the OF cost fnc';
 solve EDS using qcp minimizing OF;
 report (gen, 'penalty')=P.l(gen); 
+rep3('Total Em') = TE.l;
+rep3('Total Ct') = TC.l;
+rep3('OF')=OF.l;
+
 
 *'Limit emission strategy: minimizes total cost of fuel while enviromental polution is reduced';
 TE.up=Elim;
 solve EDS using qcp minimizing TC;
-report (gen, 'limit')=P.l(gen); 
+report (gen, 'limit')=P.l(gen);
+rep4('Total Em') = TE.l;
+rep4('OF')=OF.l;
 
-display report, TC.l, TE.l, OF.l;
+*rep('Total Ct') = TC.l;
+
+display report, rep1, rep2, rep3, rep4;
