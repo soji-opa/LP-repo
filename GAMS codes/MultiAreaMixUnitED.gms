@@ -26,18 +26,6 @@ $offText
 *The Area set contains three elements (A1, A2, and A3).
 *The i set contains ten elements (g1 through g10). The w set contains two elements (w1 and w2).
 
-Sets t / t1,* t24 /, Area / A1, A2, A3 /, i / g1, g2, ..., g10 /, w / w1, w2 /;
-
-*This code declares a set called AreaGen, which is a subset of the Area set and the i set.
-*The first line declares that AreaGen is a set that depends on the area and i sets.
-*The next three lines set the values of AreaGen to "yes" or "no" based on the value of the i set.
-*The last line creates an alias for the area set, calling it region
-
-set AreaGen (area, i);
-AreaGen('A1', i)$(ord(i)<5)=yes;
-AreaGen('A2', i)$(ord(i)>4 and ord(i)<8)=yes;
-AreaGen('A3', i)$(ord(i)>7)=yes;
-alias (area, region);
 
 
 *This code declares a table called winddata with values for the w1 and w2 variables for each of the t elements.
@@ -160,8 +148,50 @@ Setting the seed value to a fixed number ensures that the same sequence of rando
 which can be useful for testing and debugging.
 By assigning a value to seed, you can control the sequence of random numbers that are generated.
 $offText
+*set time /t1*t24/;
+*set area /a1, a2, a3/;
+
+$onText
+parameter tmax /24/;
 
 
+table demand(t, area) 'electricity demand by time and area'
+       a1      a2      a3
+t1     258     292     237
+t2     291     237     289
+t3     343     214     299
+t4     435     267     371
+t5     408     295     393
+t6     477     293     406
+t7     422     311     369
+t8     606     422     555
+t9     500     500     500
+t10    400     400     400
+t24                        ;
+
+
+*generate random demand for missing time period
+loop(tmax+1, t,
+     loop(area,
+          demand(t, area) = round($random(200,500));
+     );
+);
+
+display demand;
+$offText
+
+Sets t / t1* t24 /, Area / A1, A2, A3 /, i / g1 * g10 /, w / w1, w2 /;
+
+*This code declares a set called AreaGen, which is a subset of the Area set and the i set.
+*The first line declares that AreaGen is a set that depends on the area and i sets.
+*The next three lines set the values of AreaGen to "yes" or "no" based on the value of the i set.
+*The last line creates an alias for the area set, calling it region
+
+set AreaGen (area, i);
+AreaGen('A1', i)$(ord(i)<5)=yes;
+AreaGen('A2', i)$(ord(i)>4 and ord(i)<8)=yes;
+AreaGen('A3', i)$(ord(i)>7)=yes;
+alias (area, region);
 
 
 Table winddata(t, w)
@@ -229,34 +259,36 @@ g9     0.0039   20.81   604.9   7     100     340   100
 g10    0.0021   16.51   502.7   40    130     60    60;
 
 
-*set time /t1*t24/;
-*set area /a1, a2, a3/;
-
-parameter tmax /10/;
 
 
 table demand(t, area) 'electricity demand by time and area'
-       a1      a2      a3
-t1     258     292     237
-t2     291     237     289
-t3     343     214     299
-t4     435     267     371
-t5     408     295     393
-t6     477     293     406
-t7     422     311     369
-t8     606     422     555
-t9     500     500     500
-t10    400     400     400;
 
+        a1          a2          a3
+t1      258.000     292.000     237.000
+t2      291.000     237.000     289.000
+t3      343.000     214.000     299.000
+t4      435.000     267.000     371.000
+t5      408.000     295.000     393.000
+t6      477.000     293.000     406.000
+t7      422.000     311.000     369.000
+t8      219.000     320.000     232.000
+t9      431.000     319.000     374.000
+t10     352.000     420.000     347.000
+t11     219.000     215.000     498.000
+t12     329.000     342.000     450.000
+t13     421.000     480.000     443.000
+t14     274.000     442.000     290.000
+t15     304.000     478.000     224.000
+t16     348.000     348.000     492.000
+t17     319.000     335.000     380.000
+t18     277.000     268.000     306.000
+t19     295.000     256.000     285.000
+t20     364.000     307.000     233.000
+t21     372.000     293.000     250.000
+t22     238.000     338.000     250.000
+t23     385.000     330.000     456.000
+t24     347.000     327.000     444.000;
 
-*generate random demand for missing time period
-loop(tmax+1, t,
-     loop(area,
-          demand(t, area) = round($random(200,500));
-     );
-);
-
-display demand;
 
 Variables Tie(area, region, t), OF, p(i,t), pw(w,t);
 tie.lo(area, region,t) =-Tielim(area, region);
@@ -266,20 +298,21 @@ tie.fx(area, region,t) = 0;
 pw.lo(w, t) = 0;
 p.up(i,t) = gendata(i, 'Pmax');
 p.lo(i,t) = gendata(i, 'Pmin');
-pw.up(w,t) = windata(t,w) * Windcap(w);
+pw.up(w,t) = winddata (t,w) * Windcap(w);
 
 Equations  tieconst, balance, RampUp, RampDn, cost;
 
-t i e c o n s t ( a r e a , r e g i o n , t ) . . T i e ( a r e a , r e g i o n , t ) =e=T i e ( r e g i o n ,
-a r e a , t ) ;
-b a l a n c e ( a r e a , t ) . . sum ( i $ A r e a G e n ( a r e a , i ) , p ( i , t ) ) +sum ( w$AreaWind
-( a r e a , w) ,Pw (w, t ) ) =e=demand ( t , a r e a ) +sum ( r e g i o n , T i e ( a r e a ,
-r e g i o n , t ) ) ;
-RampUp ( i , t ) . . p ( i , t )p ( i , t 1)= l = g e n d a t a ( i , ’RU ’ ) ;
-RampDn ( i , t ) . . p ( i , t 1)p ( i , t ) = l = g e n d a t a ( i , ’RD ’ ) ;
-c o s t . . OF=e= sum ( ( i , t ) , g e n d a t a ( i , ’ a ’ ) p ( i , t ) p ( i , t ) + g e n d a t a ( i , ’
-b ’ ) p ( i , t )
-+ g e n d a t a ( i , ’ c ’ ) ) ;
-Model e d c / a l l / ;
-S o l v e e d c min OF u s QCP ;
+tieconst ( area, region, t ) .. Tie( area, region, t) =e=-Tie( region, area, t );
+
+balance ( area, t ) .. sum (i$AreaGen( area, i ), p (i,t) ) + sum (w$AreaWind ( area, w), Pw (w,t) ) =e=demand ( t, area) + sum ( region, Tie ( area, region, t) );
+
+RampUp ( i, t ) .. p(i,t) - p(i, t-1) =l= gendata ( i, 'RU' );
+
+RampDn (i,t) .. p(i, t-1) - p(i, t)  =l= gendata ( i, 'RD' );
+
+cost .. OF=e= sum( ( i,t), gendata ( i, 'a' ) * p( i, t ) * p( i, t ) + gendata ( i, 'b') * p( i, t ) + gendata ( i , 'c' )) ;
+
+Model mamued /  all / ;
+
+Solve mamued min OF us QCP;
 
