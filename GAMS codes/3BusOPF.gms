@@ -91,7 +91,7 @@ conex(bus,node)$(conex(node,bus)) = 1;
 
 Table branch(bus,node,*) 'network technical characteristics'
         x     Limit
-   1.2  0.2   50
+   1.2  0.2   100
    2.3  0.25  100
    1.3  0.4   100 ;
    
@@ -106,6 +106,75 @@ It is saying that if the value of branch(bus,node,'Limit') is 0, then the value 
 
 The third equation is defining the parameter branch for a pair of buses that are connected (conex(bus,node) is true) and a parameter called bij.
 It is saying that the value of branch(bus,node,'x') should be set to 1 divided by the value of bij.
+
+
+-------------------------------------------------------------
+Using the table below
+
+Table branch(bus,node,*) 'network technical characteristics'
+        x     Limit
+   1.2  0.2   100
+   2.3  0.25  100
+   1.3  0.4   100 ;
+   
+We get:
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR OF                -INF         1035.0000        +INF             .  
+
+
+
+      Gen(MW)       Angle    load(MW)  LMP($/MWh)
+
+1      65.000       0.020                  11.000
+2                  -0.100     100.000      11.000
+3      35.000                              11.000
+
+
+
+
+
+-------------------------------------------------------------
+
+
+-----------------------------------------------------------
+Question: What would happen if the flow limit of the branch connecting bus 1 to
+bus 2 is reduced to 50MW.
+
+Table branch(bus,node,*) 'network technical characteristics'
+        x     Limit
+   1.2  0.2   50
+   2.3  0.25  100
+   1.3  0.4   100 ;
+
+We get:
+
+
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR OF                -INF         1056.2500        +INF             .
+
+
+
+      Gen(MW)       Angle    load(MW)  LMP($/MWh)
+
+1      43.750      -0.025                  10.000
+2                  -0.125     100.000      11.625
+3      56.250                              11.000
+
+
+
+            1           2           3
+
+1                   0.500      -0.062
+2      -0.500                  -0.500
+3       0.062       0.500
+
+------------------------------------------------------------
+
 **************************************************************
 $offText
 branch(bus,node,'x')$(branch(bus,node,'x')=0)         =   branch(node,bus,'x');
